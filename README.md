@@ -1,4 +1,4 @@
-# Factorization-and-Decomposition-of-a-polynomial-over-finite-fields
+# Factorization-of-a-Polynomial-over-Finite-Fields
 
 
 Given a monic polynomial f over finite fields F, (i.e. the coefficents of f are in the field F), we will factor f into product of irreducible monic polynomials. (a polynomial is irreducible if it is not the product of two polynomials of positive degree.)
