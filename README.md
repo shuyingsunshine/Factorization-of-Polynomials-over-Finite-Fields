@@ -23,5 +23,17 @@ In "equal_degree_factorization.txt", the code is for factor a square-free polyno
 In "factor.txt", the code is for factor any monic polynomial f over finite fields into products of irreducibles.
 
 
+To use the factor function, first generate a finite field F, and then generate some polynomial f over F, then call factor(f).
+
+Magma example code:
+
+load "factor.txt";
+p := 5;
+e := 2;
+F<g> := FiniteField(p,e);
+P<x> := PolynomialRing(F);
+n := 10;
+f := random_poly(n,F);
+factor(f);
 
    
