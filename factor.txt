@@ -1,0 +1,57 @@
+
+load "equal_degree_fact.txt"
+
+function to_list(C);
+    res := [];
+    deglist := [];
+    for deg in Keys(C) do
+       Append(~deglist,deg);
+    end for;
+    deglist := Sort(deglist);
+    for deg in deglist do
+       A := C[deg];
+       for poly in Keys(A) do
+           Append(~res,<poly,A[poly]>);
+        end for;
+    end for;
+    return res;
+end function;
+    
+
+function factor(f);
+     LF := Parent(LeadingCoefficient(f));
+     lq := #LF;
+     if lq mod 3 eq 2 and lq mod 2 eq 0 then
+         "the field is of 2 mod 3 even order ";
+        return [<f,1>];
+     end if;
+     //lp := #(PrimeField(LF));
+     res := AssociativeArray();
+     AssoArr := square_free_fact(f);
+     for poly in Keys(AssoArr) do
+         a := AssoArr[poly];
+         temp := distinct_deg_fact(poly);
+         for A in temp do
+             ipoly := A[1];
+             d := A[2];
+             fact := equal_deg_fact(ipoly,d);
+             if IsDefined(res,d) then
+                for lpoly in fact do
+                   if IsDefined(res[d],lpoly) then
+                      res[d][lpoly] := res[d][lpoly] + a;
+                   else
+                      res[d][lpoly] := a;
+                   end if;
+                 end for;
+             else
+                res[d] := AssociativeArray();
+                for lpoly in fact do 
+                   res[d][lpoly] := a;
+                end for;
+             end if;
+          end for;
+      end for;
+      res := to_list(res);
+      return res;
+end function;
+

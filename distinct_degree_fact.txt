@@ -1,0 +1,62 @@
+
+load "square_free_fact.txt";
+
+function base_2(n);
+//given a positive integer n, returns the base 2 expression of d as a list
+    res := [];
+    while(n gt 0) do
+        Append(~res,n mod 2);
+        n := n div 2;
+    end while;
+    return res;
+end function;
+
+function basic_step(h,f,k);
+//given a monic polynomial f and  a polynomial h(not necessarily monic) in F_q[x], returns h^k mod f;
+    L := base_2(k);
+    temp := general_divalg(h,f)[2];
+    res := 1;
+    for i := 1 to #L do
+       if (temp eq 0) then
+          return 0;
+       end if;
+       if (L[i] eq 1) then
+            res := res*temp;
+            res := general_divalg(res,f)[2];
+       end if;
+       if (i lt #L) then 
+           temp := temp*temp;
+           temp := general_divalg(temp,f)[2];
+       end if;
+    end for;
+    return res;
+end function;
+
+
+
+function distinct_deg_fact(f);
+//given monic squarefree polynomial f, returns the distinct degree factorization of f. 
+     LF := Parent(LeadingCoefficient(f));
+     lq := #LF;
+     R<x> := Parent(f);
+     res := [];
+     first := f;
+     second := basic_step(x,first,lq);
+     cnt := 1;
+     while (not first eq 1) do
+         tem := second-divalg(x,first)[2];
+         if (tem eq 0) then
+            common := first;
+         else
+            tem := tem/LeadingCoefficient(tem);
+            common := gcd(first,tem);
+         end if;
+         if (not common eq 1) then
+             Append(~res,<common,cnt>);
+         end if;
+         cnt := cnt+1;
+         first := divalg(first,common)[1];
+         second := basic_step(second,first,lq);
+    end while;
+    return res;
+end function;

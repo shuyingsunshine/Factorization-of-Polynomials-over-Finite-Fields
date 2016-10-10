@@ -1,0 +1,68 @@
+function divalg(f,d);
+//given monic polynomials f, d with d /= 0, returns a pair of polynomials
+//(w,r) satisfying f = wd + r with w monic and r = 0 or deg(r) < deg(d).
+        R<x> := Parent(f);
+        f := f*x^0;
+        d := d*x^0;
+        n := Degree(f);
+        m := Degree(d);
+        if (n lt m) then
+            return (<0,f>);
+        else
+            temp := x^(n-m);
+            w := x^(n-m);
+            r := f - d * temp;
+            while( (not r eq 0) and (not Degree(r) lt m)) do
+                temp := LeadingCoefficient(r)*x^(Degree(r)-m);
+                w := w+temp;
+                r := r - d * temp;
+            end while;
+            return (<w,r>);
+        end if;
+end function;
+    
+
+
+function gcd(f,h);
+//given monic polynomials f,h with fh ̸= 0, returns the greatest common
+//divisor of f,h as a monic polynomial.
+    R<x> := Parent(f);
+    f := f*x^0;
+    h := h*x^0;
+    n := Degree(f);
+    m := Degree(h);
+    if (n gt m) then
+        new_f := f;
+        new_d := h;
+    else
+        new_f := h;
+        new_d := f;
+    end if;
+    A := divalg(new_f,new_d);
+    r := A[2];
+    while( not r eq 0) do
+        new_f := new_d;
+        a := LeadingCoefficient(r);
+        new_d := r/a;
+        A := divalg(new_f,new_d);
+        r := A[2];
+    end while;
+    return (new_d);
+end function;
+
+function general_divalg(f,d);
+//given f may not be monic, and d is monic with d not 0, returns a pair of polynomials
+//(w,r) satisfying f = wd + r with w monic and r = 0 or deg(r) < deg(d).
+    R<x> := Parent(d);
+    if (f eq 0) then
+        return (<0,0>);
+    else
+        f := f*x^0; 
+        a := LeadingCoefficient(f);
+        f := f/a;
+        A := divalg(f,d);
+        A[1] := A[1]*a;
+        A[2] := A[2]*a;
+        return A;
+    end if;
+end function;
