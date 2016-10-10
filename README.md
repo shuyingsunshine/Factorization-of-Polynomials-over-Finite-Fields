@@ -12,7 +12,7 @@ The algorithm is divided into 3 phases:
 
 The implementation is based on magma.
 
-In "gcd.txt", the code is for finding the greatest common divisor of two monic polynomials, which is similar to the idea of Eucleadian algorithm used in finding the greatest common divisor of two integers.
+In "gcd.txt", the code is for finding the greatest common divisor of two polynomials, which is similar to the idea of Eucleadian algorithm used in finding the greatest common divisor of two integers.
 
 In "square_free_fact.txt", the code is for finding the sqaure-free factorization, which is pahse 1.
 
