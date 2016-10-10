@@ -27,13 +27,21 @@ To use the factor function, first generate a finite field F, and then generate s
 
 Magma example code:
 
+
 load "factor.txt";
+
 p := 5;
+
 e := 2;
+
 F<g> := FiniteField(p,e);
+
 P<x> := PolynomialRing(F);
+
 n := 10;
+
 f := random_poly(n,F);
+
 factor(f);
 
-   
+
