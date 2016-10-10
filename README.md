@@ -7,7 +7,7 @@ The algorithm is divided into 3 phases:
 
    1. square-free factorization : given monic polynomial f, find the square-free factorization of f (i.e. each factor appears only once)
    2. distinct degree factorization : given monic square-free polynomial, find the distinct degree factorization of f such that each factor is the product of all monic irreducible factors of f of the same degree
-   3. equal degree factorization : given a monic square-free polynomial f of positive degree that is known to be the product of irreducible polynomials of degree d, find the factorization of f into irreducible factors
+   3. equal degree factorization : given a monic square-free polynomial f of positive degree that is known to be the product of irreducible polynomials of degree d, find the factorization of f into irreducible factors. The algorithm we used is probabilistic algorithms. And we deal with the odd finite field and even finite field separately.
    
 
 The implementation is based on magma.
